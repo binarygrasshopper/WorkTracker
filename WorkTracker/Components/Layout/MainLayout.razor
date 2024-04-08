@@ -14,13 +14,30 @@
         </FluentBodyContent>
     </FluentStack>
     <FluentFooter>
+       @*  <FluentGrid OnBreakpointEnter="@OnBreakpointEnterHandler" Justify="JustifyContent.Center">
+            <FluentGridItem lg="8">
+                <div>
+                    <span class="text-muted">Work Tracker (Alpha) - Version @Version</span>
+                </div>
+            </FluentGridItem>
+
+            <FluentGridItem lg="4">
+                <div>
+                    <span class="text-muted"></span>
+                </div>
+            </FluentGridItem>
+            
+              
+        </FluentGrid> *@
+
         <div class="link1">
             <a href="https://www.fluentui-blazor.net" target="_blank">Documentation and demos</a>
-        </div>
+        </div> 
+  
         <div class="container">
             <span class="text-muted">Work Tracker (Alpha) - Version @Version</span>
         </div>
-        @* <div class="link3">
+          @*<div class="link3">
             <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor" target="_blank">About Blazor</a>
         </div> *@
     </FluentFooter>
@@ -39,6 +56,12 @@
     {
         Version version = Assembly.GetEntryAssembly().GetName().Version;
         Version = $"v{version.Major}.{version.Minor} (Build: {version.Build}, Revision: {version.Revision})";
+    }
+
+    void OnBreakpointEnterHandler(GridItemSize size)
+    {
+        Console.WriteLine($"Page Size: {size}");
+        // DemoLogger.WriteLine($"Page Size: {size}");
     }
 }
 
