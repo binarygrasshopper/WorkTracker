@@ -1,0 +1,56 @@
+﻿@page "/Register"
+<PageTitle>New User</PageTitle>
+
+<FluentLabel Typo="Typography.PageTitle" style="text-align: center;">Register</FluentLabel>
+
+<FluentCard Style="margin: 16px;">
+    <FluentLabel Style="margin-bottom:24px">
+                 Let's get you all set up so you can verify your personal account and begin using Work Tracker.
+    </FluentLabel>
+    <EditForm Model="@Data" OnValidSubmit="ValidHandlerAsync" >
+        <FluentTextField Label="First Name: " 
+            Placeholder="Enter your first name"
+            Required
+            @bind-Value ="@Data.FirstName" />
+        <FluentTextField Label="Last Name: " 
+            Placeholder="Enter your last name"
+            Required
+            @bind-Value="@Data.LastName" />
+        
+        <FluentDatePicker Label="Birth date:" 
+            @bind-Value="@Data.BirthDate" />
+            
+        <FluentTextField Label="EMail: *" 
+            TextFieldType="TextFieldType.Email"
+            Required
+            @bind-Value="@Data.Email" />
+        <FluentCheckbox Label="I agree to all terms and conditions" 
+            @bind-Value="@AcceptToCreate" />
+
+        <div style="margin: 24px 0px;" />
+    </EditForm>
+</FluentCard>    
+
+@code {
+    private bool loading = false;
+    private bool AcceptToCreate = false;
+    private RegisterUser Data = new();
+
+    private async Task ValidHandlerAsync()
+    {
+        loading = true;
+        await Task.Delay(2000);
+        // Console.WriteLine("User Registered");
+        loading = false;
+    }
+
+    
+    public class RegisterUser
+    {
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public DateTime? BirthDate { get; set; }
+        public string? Email { get; set; }
+        
+    } 
+}

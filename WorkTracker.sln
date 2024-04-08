@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkTracker", "WorkTracker\WorkTracker.csproj", "{062C2BB1-EDBB-40D8-BE07-1B105C5B2810}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkTracker", "WorkTracker\WorkTracker.csproj", "{062C2BB1-EDBB-40D8-BE07-1B105C5B2810}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkTracker.Client", "WorkTracker.Client\WorkTracker.Client.csproj", "{35AAA5E8-55A2-433E-82D2-BF493A05198A}"
 EndProject
