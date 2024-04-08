@@ -1,0 +1,45 @@
+﻿@using System.Reflection
+@inherits LayoutComponentBase
+
+<FluentLayout>
+    <FluentHeader>
+        Work Tracker Alpha
+    </FluentHeader>
+    <FluentStack Class="main" Orientation="Orientation.Horizontal" Width="100%">
+        <NavMenu />
+        <FluentBodyContent Class="body-content">
+            <div class="content">
+                @Body
+            </div>
+        </FluentBodyContent>
+    </FluentStack>
+    <FluentFooter>
+        <div class="link1">
+            <a href="https://www.fluentui-blazor.net" target="_blank">Documentation and demos</a>
+        </div>
+        <div class="container">
+            <span class="text-muted">Work Tracker (Alpha) - Version @Version</span>
+        </div>
+        @* <div class="link3">
+            <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor" target="_blank">About Blazor</a>
+        </div> *@
+    </FluentFooter>
+</FluentLayout>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
+
+@code {
+    public string Version { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Version version = Assembly.GetEntryAssembly().GetName().Version;
+        Version = $"v{version.Major}.{version.Minor} (Build: {version.Build}, Revision: {version.Revision})";
+    }
+}
+
+
