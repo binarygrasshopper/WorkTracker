@@ -1,7 +1,74 @@
 ﻿@page "/"
+@attribute [StreamRendering]
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Dashboard</PageTitle>
 
-<h1>Hello, world!</h1>
+@* <FluentLabel Typo="Typography.PageTitle" style="text-align: center;">Dashboard</FluentLabel> *@
 
-Welcome to your new Fluent Blazor app.
+@if (workItems == null)
+{
+    <FluentProgressRing>Loading...</FluentProgressRing>
+}
+else
+{
+    <FluentLabel style="text-align: center; font-weight: lighter ;">Summary of the Items a Given User has worked on</FluentLabel>
+    <br /> <!-- Add a blank line here -->
+    <FluentDataGrid Id="workitemgrid" Items="@workItems" GridTemplateColumns="1fr 1fr 1fr 1fr 1fr 1fr 1fr" TGridItem="WorkItem">
+        @* <PropertyColumn Title="Id" Property="@(c => c!.Id)" Align="Align.Start" /> *@
+        <PropertyColumn Title="Title" Property="@(c => c!.Title)" Align="Align.Start" />
+        <PropertyColumn Title="Description" Property="@(c => c!.Description)" Align="Align.Center" />
+        <PropertyColumn Title="Status" Property="@(c => c!.Status)" Align="Align.Center" />
+        <PropertyColumn Title="Priority" Property="@(c => c!.Priority)" Align="Align.Center" Sortable="true"/>
+        <PropertyColumn Title="Assigned To" Property="@(c => c!.AssignedTo)" Align="Align.Center" />
+        <PropertyColumn Title="Created Date" Property="@(c => c!.CreatedDate)" Align="Align.Center" />
+        <PropertyColumn Title="Due Date" Property="@(c => c!.DueDate)" Align="Align.Center" />
+    </FluentDataGrid>
+}
+
+@code   {
+    private IQueryable<WorkItem>? workItems;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Simulate asynchronous loading to demonstrate streaming rendering
+        await Task.Delay(2000);
+
+        workItems = Enumerable.Range(1, 5).Select(index => new WorkItem
+        {
+            Id = index,
+            Title = $"Work Item {index}",
+            Description = $"Description of work item {index}",
+            Status = (WorkItemStatus)Random.Shared.Next(3),
+            Priority = (WorkItemPriority)Random.Shared.Next(3),
+            AssignedTo = $"User {Random.Shared.Next(1, 5)}",
+            CreatedDate = DateTime.Now.AddDays(-index),
+            DueDate = DateTime.Now.AddDays(index),
+        }).AsQueryable();
+    }
+
+    private class WorkItem
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public WorkItemStatus Status { get; set; }
+        public WorkItemPriority Priority { get; set; }
+        public string AssignedTo { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime DueDate { get; set; }
+    }
+
+    private enum WorkItemStatus
+    {
+        New,
+        InProgress,
+        Completed
+    }
+
+    private enum WorkItemPriority
+    {
+        Low,
+        Medium,
+        High
+    }
+}
